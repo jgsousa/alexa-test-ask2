@@ -52,9 +52,6 @@ const FlightDatesHandlerHandler = {
 
         const repromptText = 'Need to know anything else about flights?';
 
-        sessionAttributes.locationOutput = locationSlot.value;
-        handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
-
         return handlerInput.responseBuilder
             .speak(speechText)
             .reprompt(repromptText)
