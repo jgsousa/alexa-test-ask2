@@ -39,6 +39,20 @@ const SearchToHandler = {
     }
 };
 
+const FallBackHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'flightsto';
+    },
+    handle(handlerInput) {
+        const speechText = 'Sorry, I don\'t understand your request';
+
+        return handlerInput.responseBuilder
+            .speak(speechText)
+            .reprompt(speechText)
+            .getResponse();
+    }
+};
+
 app.use(bodyParser.json());
 app.post('/test', function(req, res) {
 
