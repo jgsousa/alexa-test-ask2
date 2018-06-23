@@ -41,6 +41,28 @@ const SearchToHandler = {
     }
 };
 
+const FlightDatesHandlerHandler = {
+    canHandle(handlerInput) {
+        return ( handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
+                 handlerInput.requestEnvelope.request.intent.name === 'flightdates');
+    },
+    handle(handlerInput) {
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        const locationSlot = handlerInput.requestEnvelope.request.intent.slots.location;
+        const speechText = 'There are flights to ' + sessionAttributes.locationOutput + 'on the 23rd of August.';
+
+        const repromptText = 'Need to know anything else about flights to ' + locationSlot.value + '?';
+
+        sessionAttributes.locationOutput = locationSlot.value;
+        handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
+
+        return handlerInput.responseBuilder
+            .speak(speechText)
+            .reprompt(repromptText)
+            .getResponse();
+    }
+};
+
 const FallBackHandler = {
     canHandle(handlerInput) {
         return ( handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
@@ -65,7 +87,8 @@ if (!skill) {
     .addRequestHandlers(
         LaunchRequestHandler,
         SearchToHandler,
-        FallBackHandler
+        FallBackHandler,
+        FlightDatesHandlerHandler
     )
     .create();
 
