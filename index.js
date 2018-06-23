@@ -4,6 +4,7 @@ let skill;
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const PORT = process.env.PORT || 8080;
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
@@ -63,6 +64,6 @@ skill.invoke(req.body)
 
 });
 
-app.listen(3000, function () {
-    console.log('Development endpoint listening on port 3000!');
+app.listen(PORT, function () {
+    console.log('Development endpoint listening on port ' + PORT + '!');
 });
