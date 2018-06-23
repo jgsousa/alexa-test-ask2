@@ -22,7 +22,8 @@ const LaunchRequestHandler = {
 
 const SearchToHandler = {
     canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'flightsto';
+        return ( handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
+                 handlerInput.requestEnvelope.request.intent.name === 'flightsto');
     },
     handle(handlerInput) {
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
@@ -41,7 +42,8 @@ const SearchToHandler = {
 
 const FallBackHandler = {
     canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'AMAZON.FallbackIntent';
+        return ( handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
+                 handlerInput.requestEnvelope.request.intent.name === 'AMAZON.FallbackIntent');
     },
     handle(handlerInput) {
         const speechText = 'Sorry, I don\'t understand your request';
