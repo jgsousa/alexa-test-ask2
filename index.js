@@ -19,14 +19,34 @@ const LaunchRequestHandler = {
     }
 };
 
+const SearchToHandler = {
+    canHandle(handlerInput) {
+        return handlerInput.requestEnvelope.request.type === 'flightsto';
+    },
+    handle(handlerInput) {
+        const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
+        const locationSlot = handlerInput.requestEnvelope.request.intent.slots.Location;
+        const speechText = 'You asked for flights to ' + locationSlot.value;
+
+        sessionAttributes.locationOutput = locationSlot.value;
+        handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
+
+        return handlerInput.responseBuilder
+            .speak(speechText)
+            .reprompt(speechText)
+            .getResponse();
+    }
+};
+
 app.use(bodyParser.json());
-app.post('/', function(req, res) {
+app.post('/test', function(req, res) {
 
 if (!skill) {
 
     skill = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
-        LaunchRequestHandler
+        LaunchRequestHandler,
+        SearchToHandle
     )
     .create();
 
@@ -34,11 +54,11 @@ if (!skill) {
 
 skill.invoke(req.body)
     .then(function(responseBody) {
-    res.json(responseBody);
+        res.json(responseBody);
     })
     .catch(function(error) {
-    console.log(error);
-    res.status(500).send('Error during the request');
+        console.log(error);
+        res.status(500).send('Error during the request');
     });
 
 });
