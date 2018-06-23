@@ -48,7 +48,6 @@ const FlightDatesHandlerHandler = {
     },
     handle(handlerInput) {
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-        const locationSlot = handlerInput.requestEnvelope.request.intent.slots.location;
         const speechText = 'There are flights to ' + sessionAttributes.locationOutput + 'on the 23rd of August.';
 
         const repromptText = 'Need to know anything else about flights to ' + locationSlot.value + '?';
