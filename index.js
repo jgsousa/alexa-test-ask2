@@ -41,7 +41,7 @@ const SearchToHandler = {
 
 const FallBackHandler = {
     canHandle(handlerInput) {
-        return handlerInput.requestEnvelope.request.type === 'flightsto';
+        return handlerInput.requestEnvelope.request.type === 'AMAZON.FallbackIntent';
     },
     handle(handlerInput) {
         const speechText = 'Sorry, I don\'t understand your request';
@@ -61,7 +61,8 @@ if (!skill) {
     skill = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
-        SearchToHandler
+        SearchToHandler,
+        FallBackHandler
     )
     .create();
 
