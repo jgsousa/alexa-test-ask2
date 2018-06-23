@@ -47,7 +47,7 @@ if (!skill) {
     skill = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
-        SearchToHandle
+        SearchToHandler
     )
     .create();
 
