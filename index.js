@@ -29,13 +29,14 @@ const SearchToHandler = {
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
         const locationSlot = handlerInput.requestEnvelope.request.intent.slots.location;
         const speechText = 'You asked for flights to ' + locationSlot.value;
+        const repromptText = 'Need to know anything else about flights to ' + locationSlot.value + '?';
 
         sessionAttributes.locationOutput = locationSlot.value;
         handlerInput.attributesManager.setSessionAttributes(sessionAttributes);
 
         return handlerInput.responseBuilder
             .speak(speechText)
-            .reprompt(speechText)
+            .reprompt(repromptText)
             .getResponse();
     }
 };
