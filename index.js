@@ -26,7 +26,7 @@ const SearchToHandler = {
     },
     handle(handlerInput) {
         const sessionAttributes = handlerInput.attributesManager.getSessionAttributes();
-        const locationSlot = handlerInput.requestEnvelope.request.intent.slots.Location;
+        const locationSlot = handlerInput.requestEnvelope.request.intent.slots.location;
         const speechText = 'You asked for flights to ' + locationSlot.value;
 
         sessionAttributes.locationOutput = locationSlot.value;
